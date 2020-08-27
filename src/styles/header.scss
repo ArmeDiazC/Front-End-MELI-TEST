@@ -1,0 +1,47 @@
+@import "colors";
+
+header {
+  background-color: $yellow;
+  grid-area: header;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .nav {
+    width: 83%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    grid-area: nav;
+
+    form {
+      width: 100%;
+      display: flex;
+      flex-basis: revert;
+      img.logo {
+        margin-right: 25px;
+      }
+      input {
+        width: 91%;
+        padding-left: 5px;
+        border-radius: 2px;
+        outline: none;
+        border: 0 rgba(0, 0, 0, 0.2);
+        font-size: 18px;
+      }
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        background: $light-gray;
+        margin: 0;
+        border-radius: 2px;
+        outline: none;
+        border: 0 rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+}

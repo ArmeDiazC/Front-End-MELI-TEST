@@ -1,0 +1,6 @@
+@import "colors";
+
+.contentWrapper {
+  grid-area: contentWrapper;
+  height: calc(100vh - 56px);
+}
