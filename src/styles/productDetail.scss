@@ -1,0 +1,61 @@
+@import "colors";
+
+.productDetail {
+  display: grid;
+  grid-template-columns: 2fr 0.6fr;
+  grid-template-rows: 3fr 1fr;
+  grid-template-areas: "detailImage detailInfo" "detailDescription .";
+  background-color: white;
+  color: $black;
+  padding: 32px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+  margin-bottom: 32px;
+
+  .detailImage {
+    grid-area: detailImage;
+    width: 680px;
+    margin: 0 auto;
+    img {
+      width: 100%;
+    }
+  }
+  .detailInfo {
+    grid-area: detailInfo;
+    .detailState {
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+    h1 {
+      font-size: 24px;
+    }
+    .detailPrice {
+      margin: 32px 0;
+      font-size: 46px;
+      display: block;
+    }
+    button {
+      display: block;
+      margin: 0 auto;
+      padding: 12px 16px;
+      width: 100%;
+      background-color: $blue;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 18px;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  .detailDescription {
+    grid-area: detailDescription;
+    h2 {
+      font-size: 28px;
+    }
+    p {
+      margin-top: 32px;
+      font-size: 16px;
+    }
+  }
+}

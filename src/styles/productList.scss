@@ -1,0 +1,38 @@
+@import "colors";
+
+.productList {
+  background-color: white;
+  color: $black;
+  padding: 16px;
+  display: flex;
+  cursor: pointer;
+  text-decoration: none;
+  border-bottom: 1px solid $light_gray;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+  .productImage {
+    width: 180px;
+    height: 180px;
+    margin-right: 16px;
+    display: flex;
+    img {
+      width: 100%;
+    }
+  }
+  .productData {
+    width: calc(90% - 196px);
+    .productPrice {
+      font-size: 24px;
+    }
+    .productTitle {
+      margin-top: 32px;
+      font-size: 18px;
+    }
+  }
+  .productLocation {
+    font-size: 12px;
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    margin-top: 36px;
+  }
+}

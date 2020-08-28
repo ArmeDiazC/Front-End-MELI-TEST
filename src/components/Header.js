@@ -2,6 +2,7 @@ import React from "react";
 import "../styles/header.scss";
 import logo from "../assets/Logo_ML.png";
 import searchIcon from "../assets/ic_Search.png";
+
 const Header = () => {
   return (
     <header>
