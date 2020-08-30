@@ -2,6 +2,10 @@
 
 html,
 body,
+#root {
+  margin: 0;
+  height: auto;
+}
 .grid-container {
   height: 100%;
   margin: 0;

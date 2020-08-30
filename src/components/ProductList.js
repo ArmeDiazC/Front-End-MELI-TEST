@@ -1,20 +1,44 @@
 import React from "react";
 import "../styles/productList.scss";
-import IMG from "../assets/02_Detalle.png";
+import { connect } from "react-redux";
+import { activeProduct } from "../actions/index";
 
-const ProductList = () => {
-  return (
-    <a className="productList" href="/">
-      <div className="productImage">
-        <img src={IMG} alt="" />
-      </div>
-      <div className="productData">
-        <div className="productPrice">$1.980</div>
-        <div className="productTitle">Apple Ipod Touch 5g 16gb</div>
-      </div>
-      <div className="productLocation">Capital Federal</div>
-    </a>
-  );
+class ProductList extends React.Component {
+  renderList() {
+    return this.props.list.map((product) => {
+      return (
+        <div
+          className="productList"
+          key={product.id}
+          onClick={() => this.clickProductList(product.id)}
+        >
+          <div className="productImage">
+            <img src={product.picture} alt="product_image" />
+          </div>
+          <div className="productData">
+            <div className="productPrice">
+              $ {new Intl.NumberFormat("de-DE").format(product.price.amount)}
+            </div>
+            <div className="productTitle">{product.title}</div>
+          </div>
+          <div className="productLocation">{product.address}</div>
+        </div>
+      );
+    });
+  }
+  render() {
+    if (this.props.loadingList) {
+      return <p>CARGANDO</p>;
+    }
+    return <>{this.renderList()}</>;
+  }
+
+  clickProductList(productSelected) {
+    console.log(productSelected);
+  }
+}
+const mapStateToProps = (state) => {
+  return { list: state.productList, loadingList: state.loadingList };
 };
 
-export default ProductList;
+export default connect(mapStateToProps, { activeProduct })(ProductList);

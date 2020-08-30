@@ -3,9 +3,20 @@
 .contentWrapper {
   grid-area: contentWrapper;
 
-  .productBreadcumb {
-    margin: 16px 0 16px 0;
+  .breadcumb {
+    margin: 16px 0;
     font-size: 14px;
     color: $gray;
+    span {
+      &::after {
+        content: ">";
+        padding: 10px;
+      }
+      &:last-of-type {
+        &:after {
+          content: "";
+        }
+      }
+    }
   }
 }

@@ -3,13 +3,13 @@ import Header from "./components/Header";
 import ContentWrapper from "./components/ContentWrapper";
 import "./styles/layout.scss";
 
-function App() {
+const App = () => {
   return (
     <div className="grid-container">
       <Header />
       <ContentWrapper />
     </div>
   );
-}
+};
 
 export default App;
