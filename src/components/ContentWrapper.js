@@ -3,17 +3,21 @@ import "../styles/contentWrapper.scss";
 import BreadCumb from "./Breadcumb";
 import ProductList from "./ProductList";
 import ProductDetail from "./ProductDetail";
+import { connect } from "react-redux";
 
-const ContentWrapper = () => {
+const ContentWrapper = (props) => {
   return (
     <div className="contentWrapper">
       <div className="breadcumb">
         <BreadCumb />
       </div>
-      <ProductList />
-      {/* <ProductDetail /> */}
+      {props.productActive ? <ProductDetail /> : <ProductList />}
     </div>
   );
 };
 
-export default ContentWrapper;
+const mapStateToProps = (state) => {
+  return { productActive: state.productActive };
+};
+
+export default connect(mapStateToProps, null)(ContentWrapper);

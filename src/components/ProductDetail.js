@@ -1,30 +1,55 @@
 import React from "react";
 import "../styles/productDetail.scss";
-import IMG from "../assets/02_Detalle.png";
-const ProductDetail = () => {
-  return (
-    <div className="productDetail">
-      <div className="detailImage">
-        <img src={IMG} alt="" />
+import { connect } from "react-redux";
+
+class ProductDetail extends React.Component {
+  renderProduct() {
+    return (
+      <div className="productDetail">
+        <div className="detailImage">
+          <img src={this.props.productData.picture} alt="" />
+        </div>
+        <div className="detailInfo">
+          <span className="detailState">
+            {this.props.productData.condition} -{" "}
+            {this.props.productData.sold_quantity} Vendidos
+          </span>
+          <h1>{this.props.productData.title}</h1>
+          <span className="detailPrice">
+            ${" "}
+            {new Intl.NumberFormat("de-DE").format(
+              this.props.productData.price.amount
+            )}
+            .
+            <span>
+              {this.props.productData.price.decimals == 0
+                ? "00"
+                : this.props.productData.price.decimals}
+            </span>
+          </span>
+          <button>Comprar</button>
+        </div>
+        <div className="detailDescription">
+          <h2>Descripción Producto</h2>
+          <p className="detailText">{this.props.productData.description}</p>
+        </div>
       </div>
-      <div className="detailInfo">
-        <span className="detailState">Nuevo - 234 Vendidos</span>
-        <h1>DECO REVERSE SOMBREORO OXFORD</h1>
-        <span className="detailPrice">$ 1.980ºº</span>
-        <button>Comprar</button>
-      </div>
-      <div className="detailDescription">
-        <h2>Descripción Producto</h2>
-        <p className="detailText">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam porttitor
-          lacus vel dapibus rhoncus. Interdum et malesuada fames ac ante ipsum
-          primis in faucibus. Nunc ut turpis eu purus facilisis tincidunt.
-          Integer posuere porta ultrices. Morbi augue nulla, tempus sed tortor
-          posuere, condimentum aliquam tortor.
-        </p>
-      </div>
-    </div>
-  );
+    );
+  }
+
+  render() {
+    if (this.props.loadingProduct) {
+      return <p>CARGANDO</p>;
+    }
+    return <>{this.renderProduct()}</>;
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    productData: state.productDetail,
+    loadingProduct: state.loadingProduct,
+  };
 };
 
-export default ProductDetail;
+export default connect(mapStateToProps, null)(ProductDetail);

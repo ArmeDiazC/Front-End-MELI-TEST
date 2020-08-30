@@ -16,13 +16,14 @@ const loadingList = () => {
   return { type: actionType.LOADING_LIST };
 };
 
-export const activeProduct = (productId) => (dispatch) => {
+export const product = (productId) => async (dispatch) => {
   dispatch(loadingProduct());
-  fetch(`/items/:${productId}`).then((product) => {
-    dispatch({
-      type: actionType.ACTIVE_PRODUCT,
-      payload: productId,
-    });
+  const resp = await fetch(`${URL}/api/items/${productId}`);
+  const productData = await resp.json();
+  console.log(productData);
+  dispatch({
+    type: actionType.FETCH_PRODUCT,
+    payload: productData,
   });
 };
 

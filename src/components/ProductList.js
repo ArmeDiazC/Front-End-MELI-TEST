@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/productList.scss";
 import { connect } from "react-redux";
-import { activeProduct } from "../actions/index";
+import { product } from "../actions/index";
 
 class ProductList extends React.Component {
   renderList() {
@@ -34,6 +34,7 @@ class ProductList extends React.Component {
   }
 
   clickProductList(productSelected) {
+    this.props.product(productSelected);
     console.log(productSelected);
   }
 }
@@ -41,4 +42,4 @@ const mapStateToProps = (state) => {
   return { list: state.productList, loadingList: state.loadingList };
 };
 
-export default connect(mapStateToProps, { activeProduct })(ProductList);
+export default connect(mapStateToProps, { product })(ProductList);
