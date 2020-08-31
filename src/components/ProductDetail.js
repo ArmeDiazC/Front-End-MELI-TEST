@@ -1,15 +1,17 @@
 import React from "react";
 import "../styles/productDetail.scss";
 import { connect } from "react-redux";
-import { product, clearList, clearSearch } from "../actions/index";
+import { product, category, clearList, clearSearch } from "../actions/index";
 import { withRouter } from "react-router-dom";
 
 class ProductDetail extends React.Component {
-  // componentDidMount() {
-  //   const productId = this.props.location.pathname.match(/\w+$/g);
-  //   this.props.product(productId[0]);
-  //   console.log(productId);
-  // }
+  componentDidMount() {
+    if (!this.props.productActive) {
+      const productId = this.props.location.pathname.match(/\w+$/g);
+      this.props.product(productId[0]);
+      this.props.category(productId[0]);
+    }
+  }
   renderProduct() {
     return (
       <div className="productDetail">
@@ -51,9 +53,7 @@ class ProductDetail extends React.Component {
   }
 
   render() {
-    console.log("loading", this.props.loadingProduct);
-
-    if (this.props.loadingProduct) {
+    if (this.props.loadingProduct || !this.props.productActive) {
       return <div className="loadingSpinner"></div>;
     }
     return <>{this.renderProduct()}</>;
@@ -61,7 +61,6 @@ class ProductDetail extends React.Component {
 
   componentWillUnmount() {
     this.props.clearList();
-    this.props.clearSearch();
   }
 }
 
@@ -69,9 +68,12 @@ const mapStateToProps = (state) => {
   return {
     productData: state.productDetail,
     loadingProduct: state.loadingProduct,
+    productActive: state.productActive,
   };
 };
 
 export default withRouter(
-  connect(mapStateToProps, { product, clearList, clearSearch })(ProductDetail)
+  connect(mapStateToProps, { product, clearList, clearSearch, category })(
+    ProductDetail
+  )
 );

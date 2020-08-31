@@ -1,9 +1,15 @@
 import React from "react";
 import "../styles/productList.scss";
 import { connect } from "react-redux";
-import { product, clearList, clearSearch } from "../actions/index";
+import { product, search } from "../actions/index";
 import { withRouter } from "react-router-dom";
 class ProductList extends React.Component {
+  componentDidMount() {
+    if (this.props.list.length === 0) {
+      const searchTerm = this.props.location.search.match(/[^=]*$/g);
+      this.props.search(searchTerm[0]);
+    }
+  }
   renderList() {
     return this.props.list.map((product) => {
       return (
@@ -27,21 +33,15 @@ class ProductList extends React.Component {
     });
   }
   render() {
-    if (this.props.loadingList) {
+    if (this.props.loadingList || this.props.list.length === 0) {
       return <div className="loadingSpinner"></div>;
     }
     return <>{this.renderList()}</>;
   }
 
   clickProductList(productSelected) {
-    console.log(productSelected);
     this.props.product(productSelected);
     this.props.history.push(`item/${productSelected}`);
-  }
-
-  componentWillUnmount() {
-    this.props.clearList();
-    this.props.clearSearch();
   }
 }
 const mapStateToProps = (state) => {
@@ -54,7 +54,6 @@ const mapStateToProps = (state) => {
 export default withRouter(
   connect(mapStateToProps, {
     product,
-    clearList,
-    clearSearch,
+    search,
   })(ProductList)
 );
