@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 const Breadcumb = ({ categories }) => {
   console.log(categories);
   if (categories.length === 0) {
-    return <div>Sin DATA</div>;
+    return <></>;
   }
 
   return categories.map((category) => <span key={category}>{category}</span>);

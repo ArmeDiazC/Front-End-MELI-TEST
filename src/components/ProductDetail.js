@@ -1,32 +1,45 @@
 import React from "react";
 import "../styles/productDetail.scss";
 import { connect } from "react-redux";
+import { product, clearList, clearSearch } from "../actions/index";
+import { withRouter } from "react-router-dom";
 
 class ProductDetail extends React.Component {
+  // componentDidMount() {
+  //   const productId = this.props.location.pathname.match(/\w+$/g);
+  //   this.props.product(productId[0]);
+  //   console.log(productId);
+  // }
   renderProduct() {
     return (
       <div className="productDetail">
         <div className="detailImage">
-          <img src={this.props.productData.picture} alt="" />
+          <img
+            src={this.props.productData.picture}
+            alt={this.props.productData.title}
+          />
         </div>
         <div className="detailInfo">
           <span className="detailState">
-            {this.props.productData.condition} -{" "}
-            {this.props.productData.sold_quantity} Vendidos
+            {this.props.productData.condition === "new" ? "Nuevo" : "Usado"}
+            {this.props.productData.sold_quantity === 0
+              ? ""
+              : ` - ${this.props.productData.sold_quantity} vendidos`}
           </span>
           <h1>{this.props.productData.title}</h1>
+
           <span className="detailPrice">
             ${" "}
-            {new Intl.NumberFormat("de-DE").format(
+            {new Intl.NumberFormat("es-Es").format(
               this.props.productData.price.amount
             )}
-            .
-            <span>
-              {this.props.productData.price.decimals == 0
+            <span className="decimalPrice">
+              {this.props.productData.price.decimals === 0
                 ? "00"
                 : this.props.productData.price.decimals}
             </span>
           </span>
+
           <button>Comprar</button>
         </div>
         <div className="detailDescription">
@@ -38,10 +51,17 @@ class ProductDetail extends React.Component {
   }
 
   render() {
+    console.log("loading", this.props.loadingProduct);
+
     if (this.props.loadingProduct) {
-      return <p>CARGANDO</p>;
+      return <div className="loadingSpinner"></div>;
     }
     return <>{this.renderProduct()}</>;
+  }
+
+  componentWillUnmount() {
+    this.props.clearList();
+    this.props.clearSearch();
   }
 }
 
@@ -52,4 +72,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(ProductDetail);
+export default withRouter(
+  connect(mapStateToProps, { product, clearList, clearSearch })(ProductDetail)
+);

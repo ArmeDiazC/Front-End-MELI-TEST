@@ -1,5 +1,25 @@
 @import "colors";
 
+body {
+  height: 100vh;
+  background-color: $light_gray;
+  margin: 0;
+}
+
+.grid-container {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-rows: 56px auto;
+  grid-template-areas: "header header header" ". contentWrapper .";
+  background-color: $light_gray;
+}
+
 .contentWrapper {
   grid-area: contentWrapper;
 

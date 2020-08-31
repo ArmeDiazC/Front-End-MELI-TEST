@@ -2,7 +2,7 @@
 
 .productDetail {
   display: grid;
-  grid-template-columns: 2fr 0.6fr;
+  grid-template-columns: 2fr 1fr;
   grid-template-rows: 1fr;
   grid-template-areas: "detailImage detailInfo" "detailDescription .";
   background-color: white;
@@ -13,7 +13,7 @@
 
   .detailImage {
     grid-area: detailImage;
-    width: 680px;
+    max-width: 680px;
     text-align: center;
     img {
       max-width: 100%;
@@ -28,11 +28,18 @@
     h1 {
       font-size: 24px;
     }
+
     .detailPrice {
       margin: 32px 0;
       font-size: 46px;
-      display: block;
+      display: flex;
+      align-items: flex-start;
+      .decimalPrice {
+        font-size: 24px;
+        margin-top: 5px;
+      }
     }
+
     button {
       display: block;
       margin: 0 auto;
